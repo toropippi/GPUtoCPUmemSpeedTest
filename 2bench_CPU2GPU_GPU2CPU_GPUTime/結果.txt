@@ -1,0 +1,62 @@
+C:\Users\5080\Documents\GitHub\pafo>2bench_CPU2GPU_GPU2CPU_GPUTime\gpu_h2d_d2h_comm_only_events.exe
+GPU comm time (H2D only, 100 iters): total 0.296 ms, per-iter 0.002956 ms
+GPU comm time (D2H only, 100 iters): total 6.418 ms, per-iter 0.064179 ms
+GPU comm time (H2D + D2H, 100 iters): total 6.713 ms, per-iter 0.067135 ms
+D2H / H2D ratio: 21.710x
+Checksum (ignore): 4950
+Mismatch count: 0
+
+[5-run summary on 2026-02-25]
+2bench H2D per-iter: avg=0.001832 ms, min=0.001798 ms, max=0.001877 ms
+2bench D2H per-iter: avg=0.060616 ms, min=0.056429 ms, max=0.067091 ms
+2bench D2H/H2D ratio: avg=33.073x, min=30.926x, max=35.742x
+
+[comparison with 1bench GPUTime on 2026-02-25]
+1bench Blocking D2H per-iter: avg=0.052388 ms, min=0.046387 ms, max=0.069062 ms
+1bench Async D2H per-iter: avg=0.092584 ms, min=0.080819 ms, max=0.101130 ms
+2bench D2H vs 1bench Blocking ratio: 1.16x
+2bench D2H vs 1bench Async ratio: 0.65x
+
+[kernel wait enabled: re-measured on 2026-02-25]
+code change:
+- record kernelDone event after kernel launch
+- call cudaEventSynchronize(kernelDone[i]) before D2H timing start
+
+single run:
+GPU comm time (H2D only, 100 iters): total 0.212 ms, per-iter 0.002117 ms
+GPU comm time (D2H only, 100 iters): total 6.310 ms, per-iter 0.063101 ms
+GPU comm time (H2D + D2H, 100 iters): total 6.522 ms, per-iter 0.065219 ms
+D2H / H2D ratio: 29.805x
+Checksum (ignore): 4950
+Mismatch count: 0
+
+5-run summary (kernel wait enabled):
+2bench H2D per-iter: avg=0.001835 ms, min=0.001804 ms, max=0.001850 ms
+2bench D2H per-iter: avg=0.063843 ms, min=0.063131 ms, max=0.064987 ms
+2bench H2D+D2H per-iter: avg=0.065677 ms, min=0.064980 ms, max=0.066791 ms
+2bench D2H/H2D ratio: avg=34.803x, min=34.132x, max=36.027x
+
+1bench re-measured for same session:
+1bench Blocking D2H per-iter: avg=0.080545 ms, min=0.069928 ms, max=0.086398 ms
+1bench Async D2H per-iter: avg=0.108699 ms, min=0.099024 ms, max=0.112891 ms
+2bench(kernel wait) D2H vs 1bench Blocking ratio: 0.79x
+2bench(kernel wait) D2H vs 1bench Async ratio: 0.59x
+
+[1000 iterations enabled: re-measured on 2026-02-25]
+code change:
+- iterations = 1000 (to reduce run-to-run noise on 4-byte transfers)
+- kernelDone event + cudaEventSynchronize before D2H timing (already enabled)
+
+single run:
+GPU comm time (H2D only, 1000 iters): total 1.993 ms, per-iter 0.001993 ms
+GPU comm time (D2H only, 1000 iters): total 63.996 ms, per-iter 0.063996 ms
+GPU comm time (H2D + D2H, 1000 iters): total 65.989 ms, per-iter 0.065989 ms
+D2H / H2D ratio: 32.105x
+Checksum (ignore): 499500
+Mismatch count: 0
+
+5-run summary (1000 iters):
+2bench H2D per-iter: avg=0.001953 ms, min=0.001828 ms, max=0.002127 ms
+2bench D2H per-iter: avg=0.064211 ms, min=0.063553 ms, max=0.064865 ms
+2bench H2D+D2H per-iter: avg=0.066164 ms, min=0.065381 ms, max=0.066865 ms
+2bench D2H/H2D ratio: avg=32.964x, min=30.237x, max=34.833x

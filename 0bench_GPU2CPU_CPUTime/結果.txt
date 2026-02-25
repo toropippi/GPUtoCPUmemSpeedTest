@@ -1,0 +1,6 @@
+C:\Users\5080\Documents\GitHub\pafo\bench>gpu_d2h_overhead.exe
+Blocking D2H (cudaMemcpy): total 5.120 ms, per-iter 0.051204 ms
+Non-blocking D2H (cudaMemcpyAsync + pinned + stream): total 7.918 ms, per-iter 0.079183 ms
+Checksum (ignore): 4950
+
+C:\Users\5080\Documents\GitHub\pafo\bench>

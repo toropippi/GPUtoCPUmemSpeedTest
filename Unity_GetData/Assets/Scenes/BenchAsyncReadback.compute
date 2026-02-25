@@ -1,0 +1,23 @@
+// BenchAsyncReadback.compute
+// RWStructuredBuffer<uint> _Out: C# から SetBuffer される
+// int _Count: 要素数
+// int _Tag: 反復番号（デバッグ用）
+
+#pragma kernel CSMain
+
+RWStructuredBuffer<uint> _Out;
+int _Count;
+int _Tag;
+
+[numthreads(64, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    uint i = id.x;
+    if (i >= (uint)_Count) return;
+
+    // 何か書き込む（タグを混ぜて変化させる）
+    // 目的は「GPU側で確実に書いた」状態を作るだけ
+    uint v = i * 1664525u + 1013904223u; // LCGっぽい定数
+    v ^= (uint)_Tag * 0x9E3779B9u;
+    _Out[i] = v;
+}

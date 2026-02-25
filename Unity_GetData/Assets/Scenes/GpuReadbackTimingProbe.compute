@@ -1,0 +1,15 @@
+#pragma kernel CSMain
+
+RWStructuredBuffer<uint> _Out;
+int _Count;
+uint _FrameTag;
+
+[numthreads(64, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    uint i = id.x;
+    if (i >= (uint)_Count) return;
+
+    // Lightweight work: write frame tag + index
+    _Out[i] = _FrameTag;
+}

@@ -1,0 +1,15 @@
+#pragma kernel CSMain
+
+RWStructuredBuffer<uint> _Out;
+int _Count;
+int _Tag;
+
+[numthreads(64, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    uint i = id.x;
+    if (i >= (uint)_Count) return;
+
+    // 軽量な書き込み（計算より readback が支配する前提）
+    _Out[i] = (uint)(_Tag) ^ (i * 2654435761u);
+}
