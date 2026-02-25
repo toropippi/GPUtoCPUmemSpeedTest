@@ -13,6 +13,7 @@ ZZZignorefolder/
 
 # Visual Studio cache directory
 .vs/
+.idea/
 
 
 # Gradle cache directory
@@ -35,6 +36,11 @@ ExportedObj/
 *.opendb
 *.VC.db
 *.dwlt 
+*.obj
+*.ilk
+*.exp
+*.lib
+*.exe
 
 
 # Unity3D generated meta files
@@ -50,3 +56,7 @@ sysinfo.txt
 
 # Crashlytics generated file
 Assets/StreamingAssets/crashlytics-build.properties
+
+# Local editor/user state
+Unity_GetData/.idea/
+Unity_GetData/UserSettings/
